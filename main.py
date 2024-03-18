@@ -16,7 +16,7 @@ client = commands.Bot(command_prefix, intents=intents)
 
 @client.event
 async def on_ready():
-    nodes = [wavelink.Node(uri=lavalink_uri, password=lavalink_pass)]
+    nodes = [wavelink.Node(uri=ll_host, password=ll_pass)]
 
     await wavelink.Pool.connect(nodes=nodes, client=client, cache_capacity=None)
 
@@ -114,7 +114,7 @@ async def nightcore(ctx: commands.Context) -> None:
         return
 
     filters: wavelink.Filters = player.filters
-    filters.timescale.set(pitch=nightcore_pitch, speed=nightcore_speed, rate=1)
+    filters.timescale.set(pitch=1.2, speed=1.2, rate=1)
     await player.set_filters(filters)
 
     await ctx.message.add_reaction("\u2705")
@@ -137,7 +137,7 @@ async def nowplaying(ctx: commands.Context) -> None:
         return
     
     
-    await ctx.send(f"Now Playing **`{wavelink.Playable.author}`** **`{wavelink.Playable.title}`** **`{wavelink.Playable.uri}`** **`{wavelink.Playable.artwork}`**")
+    await ctx.send(f"Now Playing **`{wavelink.PlaylistInfo.name}`**")
 
 
 client.run(TOKEN)

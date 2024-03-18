@@ -1,10 +1,10 @@
 #$$ GENERAL ###
-TOKEN = "Your bot token goes here"
+TOKEN = "MjQwNTg5NTM4NzUyMjAwNzA0.G73Yup.rELGFnMSjt1o0CnOODktmfbZ8G33Qaryfh16o4"
 command_prefix = "!"
 
 ### LAVALINK ###
-lavalink_uri = "localhost:2333"
-lavalink_pass = "youshallnotpass"
+ll_host = "http://127.0.0.1:2333"
+ll_pass = "youshallnotpass"
 
 ### MUSIC BOT SETTINGS ###
 nightcore_pitch = 1.2

@@ -1,5 +1,5 @@
 #$$ GENERAL ###
-TOKEN = "MjQwNTg5NTM4NzUyMjAwNzA0.G73Yup.rELGFnMSjt1o0CnOODktmfbZ8G33Qaryfh16o4"
+TOKEN = "Paste your bots token here"
 command_prefix = "!"
 
 ### LAVALINK ###
@@ -9,4 +9,7 @@ ll_pass = "youshallnotpass"
 ### MUSIC BOT SETTINGS ###
 nightcore_pitch = 1.2
 nightcore_speed = 1.2
+
+slow_pitch = 0.9
+slow_speed = 0.8
 

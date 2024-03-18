@@ -13,12 +13,18 @@ intents.message_content = True
 tracemalloc.start()
 
 client = commands.Bot(command_prefix, intents=intents)
+active_track = wavelink.Playable
 
 @client.event
 async def on_ready():
     nodes = [wavelink.Node(uri=ll_host, password=ll_pass)]
 
     await wavelink.Pool.connect(nodes=nodes, client=client, cache_capacity=None)
+
+@client.event
+async def on_wavelink_track_start(payload: wavelink.TrackStartEventPayload):
+    global active_track
+    active_track = payload.track
 
 ##### KOMENDY #####
 @client.command()
@@ -114,7 +120,20 @@ async def nightcore(ctx: commands.Context) -> None:
         return
 
     filters: wavelink.Filters = player.filters
-    filters.timescale.set(pitch=1.2, speed=1.2, rate=1)
+    filters.timescale.set(pitch=nightcore_pitch, speed=nightcore_speed, rate=1)
+    await player.set_filters(filters)
+
+    await ctx.message.add_reaction("\u2705")
+
+@client.command()
+async def slow(ctx: commands.Context) -> None:
+    """Set the filter to a slow down."""
+    player: wavelink.Player = cast(wavelink.Player, ctx.voice_client)
+    if not player:
+        return
+
+    filters: wavelink.Filters = player.filters
+    filters.timescale.set(pitch=slow_pitch, speed=slow_speed, rate=1)
     await player.set_filters(filters)
 
     await ctx.message.add_reaction("\u2705")
@@ -130,14 +149,15 @@ async def disconnect(ctx: commands.Context) -> None:
     await ctx.message.add_reaction("\u2705")
 
 @client.command()
-async def nowplaying(ctx: commands.Context) -> None:
+async def np(ctx: commands.Context) -> None:
     """Show currently played song"""
     player: wavelink.Player = cast(wavelink.Player, ctx.voice_client)
     if not player:
         return
     
     
-    await ctx.send(f"Now Playing **`{wavelink.PlaylistInfo.name}`**")
+    await ctx.send(f"Now Playing **`{active_track.title}`** {active_track.uri}" )
+
 
 
 client.run(TOKEN)

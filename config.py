@@ -13,3 +13,4 @@ nightcore_speed = 1.2
 slow_pitch = 0.9
 slow_speed = 0.8
 
+auto_now_playing = True

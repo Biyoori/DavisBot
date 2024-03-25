@@ -4,7 +4,7 @@ import wavelink
 import logging
 import tracemalloc
 from config import *
-from commands import Commandos
+from commands import Commands
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -17,7 +17,7 @@ active_track = wavelink.Playable
 @client.event
 async def on_ready():
     nodes = [wavelink.Node(uri=ll_host, password=ll_pass)]
-    await client.add_cog(Commandos(client))
+    await client.add_cog(Commands(client))
     await wavelink.Pool.connect(nodes=nodes, client=client, cache_capacity=None)
 
 client.run(TOKEN)
